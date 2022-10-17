@@ -21,7 +21,7 @@ const Square = (props) => {
     }
   };
   return (
-    <div className="square" onClick={handleClick}>
+    <div className="square" onClick={() => handleClick()}>
       {/* 
       we are using a ternary to determine what will be rendered in each square. 
       
@@ -29,6 +29,7 @@ const Square = (props) => {
       
       */}
       {props.squareValue === "O" ? <img src="https://cdn.discordapp.com/attachments/830137099042816080/984895322184634448/devcircle_1.png" /> : props.squareValue}
+      {/* {props.squareValue} */}
     </div>
   );
 };

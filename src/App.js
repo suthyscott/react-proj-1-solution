@@ -5,14 +5,19 @@ import Square from "./Square";
 
 function App() {
   const [squares, setSquares] = useState(["", "", "", "", "", "", "", "", ""]);
+  // if player is true, the current player is X. If player is false, the current player is O. 
   const [player, setPlayer] = useState(true);
-
+  
   const handleClick = () => {
+    // if the reset button is clicked it will trigger this event and reset all the squares to empty strings, and the player back to it's inital value
     setSquares(["", "", "", "", "", "", "", "", ""])
     setPlayer(true)
   }
 
+  // Remember that this function runs whenever the page rerenders, including whenever a player adds an X or an O
   function calculateWinner(squares) {
+    console.log('hit calculateWinner', squares)
+    // this array contains sub arrays with all the possible winning combinations. 
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -24,12 +29,16 @@ function App() {
       [2, 4, 6],
     ];
     for (let i = 0; i < lines.length; i++) {
+      // Here we loop over the array of winning combos, and we'll access each one individually with 'lines[i]'. We'll then destructure the 3 indeces in the winning combo and save them to distinct variables (a, b and c)
       const [a, b, c] = lines[i];
       if (
+        // Now we check to make sure that the first of the 3 indeces in the winning combo has a value of either X or O. If it's falsy we know that it hasn't been clicked and is still an empty string, and no one has won with this combo. 
         squares[a] &&
+        // then we check that the second and third indeces in the winning combo match whatever value was in the first index (X or O)
         squares[a] === squares[b] &&
         squares[a] === squares[c]
       ) {
+        // if the above condition passes we know someone hit a winning combo and we can use the value from one of the three indeces to update who the winner is. 
         return `${squares[a]} won!`;
       }
     }
@@ -48,6 +57,7 @@ function App() {
         Below we are mapping over the array of squares, and for each element or string in the array we are returning the Square component (9 times in total).
         */}
         {squares.map((val, index) => {
+          // console.log(val, index)
           return (
             // Square gets returned once for each string in the 'squares' array. Each time it's rendered it is also passed 6 props.
             <Square
